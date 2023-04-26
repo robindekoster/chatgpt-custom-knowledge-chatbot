@@ -3,6 +3,7 @@ import openai
 
 def initialize_messages() -> list:
     """Initialize the chat messages with system and user messages."""
+    # TODO; since this prompt is not sufficient in steering the bot to use only the custom knowledge, experiment with it.
     return [
         {"role": "system", "content": "You’re a kind helpful assistant, only respond with knowledge knowledge you "
                                       "know for sure, dont hallucinate information."},
