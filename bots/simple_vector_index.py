@@ -1,4 +1,4 @@
-from llama_index import GPTSimpleVectorIndex, SimpleDirectoryReader
+from llama_index import GPTSimpleVectorIndex, SimpleDirectoryReader, ServiceContext
 
 
 def load_knowledge():
@@ -12,7 +12,8 @@ def create_index():
     # Load data
     documents = load_knowledge()
     # Create index from documents
-    index = GPTSimpleVectorIndex.from_documents(documents)
+    service_context = ServiceContext.from_defaults(chunk_size_limit=3000)
+    index = GPTSimpleVectorIndex.from_documents(documents, service_context=service_context)
     save_index(index)
     return index
 
