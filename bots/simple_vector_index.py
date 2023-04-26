@@ -1,13 +1,13 @@
-from llama_index import GPTSimpleVectorIndex, SimpleDirectoryReader, ServiceContext
+from llama_index import GPTSimpleVectorIndex, SimpleDirectoryReader, ServiceContext, Document
 
 
-def load_knowledge():
+def load_knowledge() -> list[Document]:
     # Load data from directory
     documents = SimpleDirectoryReader('knowledge').load_data()
     return documents
 
 
-def create_index():
+def create_index() -> GPTSimpleVectorIndex:
     print('Creating new index')
     # Load data
     documents = load_knowledge()
@@ -18,12 +18,12 @@ def create_index():
     return index
 
 
-def save_index(index):
+def save_index(index: GPTSimpleVectorIndex):
     # Save index to file
     index.save_to_disk('knowledge/index.json')
 
 
-def load_index():
+def load_index() -> GPTSimpleVectorIndex:
     # Load index from file
     try:
         index = GPTSimpleVectorIndex.load_from_disk('knowledge/index.json')
@@ -32,7 +32,7 @@ def load_index():
     return index
 
 
-def query_index(index):
+def query_index(index: GPTSimpleVectorIndex):
     # Query index
     while True:
         prompt = input("Type prompt...")
