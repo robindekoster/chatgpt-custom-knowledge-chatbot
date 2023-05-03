@@ -1,4 +1,4 @@
-from llama_index import GPTSimpleVectorIndex, SimpleDirectoryReader, ServiceContext, Document
+from llama_index import GPTVectorStoreIndex, SimpleDirectoryReader, ServiceContext, Document
 
 
 def load_knowledge() -> list[Document]:
@@ -7,36 +7,37 @@ def load_knowledge() -> list[Document]:
     return documents
 
 
-def create_index() -> GPTSimpleVectorIndex:
+def create_index() -> GPTVectorStoreIndex:
     print('Creating new index')
     # Load data
     documents = load_knowledge()
     # Create index from documents
     service_context = ServiceContext.from_defaults(chunk_size_limit=3000)
-    index = GPTSimpleVectorIndex.from_documents(documents, service_context=service_context)
-    save_index(index)
+    index = GPTVectorStoreIndex.from_documents(documents, service_context=service_context)
+    # save_index(index)
     return index
 
 
-def save_index(index: GPTSimpleVectorIndex):
+def save_index(index: GPTVectorStoreIndex):
     # Save index to file
     index.save_to_disk('knowledge/index.json')
 
 
-def load_index() -> GPTSimpleVectorIndex:
+def load_index() -> GPTVectorStoreIndex:
     # Load index from file
     try:
-        index = GPTSimpleVectorIndex.load_from_disk('knowledge/index.json')
+        index = GPTVectorStoreIndex.load_from_disk('knowledge/index.json')
     except FileNotFoundError:
         index = create_index()
     return index
 
 
-def query_index(index: GPTSimpleVectorIndex):
+def query_index(index: GPTVectorStoreIndex):
     # Query index
+    query_engine = index.as_query_engine()
     while True:
         prompt = input("Type prompt...")
-        response = index.query(prompt)
+        response = query_engine.query(prompt)
         print(response)
 
 
