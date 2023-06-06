@@ -1,3 +1,5 @@
+*This project has reached the end of its development as a simple chatgpt chatbot based on your custom knowledge. Feel free to browse the code, but please use other repos like [privateGPT](https://github.com/BrainJS/brain.js](https://github.com/imartinez/privateGPT)).*
+
 <h1 align="center">💻 ChatGPT Custom Knowledge Chatbot</h1>
 <p align="center">
   <img src="https://img.shields.io/github/stars/robindekoster/ChatGPT-Custom-Knowledge-Chatbot?style=social" alt="Stars">
